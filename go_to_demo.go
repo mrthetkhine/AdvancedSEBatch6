@@ -9,6 +9,7 @@ label1:
 	goto end
 	i += 1
 	if i < 10 {
+		//fmt.Println("i is ", i)
 		goto label1
 	}
 end:

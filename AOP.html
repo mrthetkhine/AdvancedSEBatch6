@@ -1,31 +1,33 @@
 <html>
-   
     <script>
-       function method1()
-       {
-            //business logic
-            console.log("business logic >>1");
-       }
-       function method2()
-       {
-            //business logic
-            console.log("business logic >>2");
-       }
+        let TicketMgmt = {};
 
-       function logger(fun)
-       {
-            return function()
+        TicketMgmt.method1 = function()
+        {
+            console.log('Method 1 business logic');
+        }
+        TicketMgmt.method2 = function()
+        {
+            console.log('Method 2 business logic');
+        }
+
+        function logger(module)
+        {
+            for(let p in module)
             {
-                console.log(fun.name + ' started');
-                let result = fun();
-                console.log(fun.name+ ' ended ');
-                return result;
+                if(typeof module[p] == 'function')
+                {
+                    let oldMethod = module[p];
+                    module[p] = function(...args)
+                    {
+                        console.log('Method ',p , ' is called');
+                        oldMethod(...args);
+                    } 
+                }
             }
-       }
-       method1 = logger(method1);
-       method2 = logger(method2);
-
-       method1();
-       method2();
-    </script>
+        }
+        //logger(TicketMgmt);
+        TicketMgmt.method1();
+        TicketMgmt.method2();
+    </script>    
 </html>
