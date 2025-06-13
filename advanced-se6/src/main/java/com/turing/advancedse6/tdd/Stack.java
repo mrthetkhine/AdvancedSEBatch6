@@ -4,8 +4,9 @@ public class Stack {
 
 	private int[] items;
 	private int size= 0;
-	static final int MAX_SIZE =10;
 	int top = -1;
+	static final int MAX_SIZE =10;
+	
 	
 	public Stack()
 	{
