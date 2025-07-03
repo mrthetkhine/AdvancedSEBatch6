@@ -1,0 +1,25 @@
+<html>
+    <script>
+        function order(orderId )
+        {
+            console.log('Order ',orderId);
+           
+        }
+        function payment()
+        {
+            console.log('Payment');
+        }
+        function logger(fn)
+        {
+            return function(...rest)
+            {
+                console.log('Function ',fn.name, ' was called');
+                return fn(...rest);
+            }   
+        }
+        order = logger(order);
+        payment = logger(payment);
+        order(1);
+        payment();
+    </script>    
+</html>

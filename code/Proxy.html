@@ -1,0 +1,34 @@
+<html>
+    <script>
+        const TicketMgmt = {
+            method1()
+            {
+                console.log('Method 1 business logic');
+            },
+            method2()
+            {
+                console.log('Method 2 business logic');
+            }
+        };
+
+        const loggingHandler = {
+            get(target, prop, receiver) {
+                //console.log('target ',target, ' prop ',prop, ' receiver ',receiver);
+                if(typeof target[prop] == 'function')
+                {
+                    console.log('Method ', prop , ' was called');
+                    return target[prop];
+                }
+                else
+                {
+                    return target[prop];
+                }
+                //return "world";
+            },
+        };
+
+        const proxy2 = new Proxy(TicketMgmt, loggingHandler);
+        proxy2.method1();
+        proxy2.method2();
+    </script>    
+</html>
