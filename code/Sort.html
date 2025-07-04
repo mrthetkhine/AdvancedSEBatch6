@@ -1,0 +1,33 @@
+<html>
+    <script>
+        let arr = [1,12,100,9,8];
+        //comparator
+        /*
+            == 0
+            > 0
+            < 0
+        */
+        arr.sort((a,b)=>a-b);
+        console.log('Arr ',arr);
+
+        let students = [
+            {
+                name : "Aung Aung",
+                gender : "Male",
+                age : 30
+            },
+            {
+                name : "Hla Aung",
+                gender : "Male",
+                age : 10
+            },
+            {
+                name : "Khin Khin",
+                gender : "Male",
+                age : 24
+            },
+        ];
+        students.sort((a,b)=> a.age-b.age);
+        console.log('Students ',students);    
+    </script>    
+</html>
