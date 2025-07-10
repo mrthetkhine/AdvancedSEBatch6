@@ -1,0 +1,25 @@
+<html>
+    <script>
+        function hello()
+        {
+            console.log('Hello');
+        }
+        let fun = hello;//Rule 1,
+        fun();
+
+        function accept(fn)
+        {
+            fn();
+        }
+        accept(hello);//Rule 2
+
+        function getFun()
+        {
+            return function()
+            {
+                console.log('Function returned from getFun');
+            }
+        }
+        getFun()();//Rule 3
+    </script>
+</html>

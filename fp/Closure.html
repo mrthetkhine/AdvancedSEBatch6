@@ -1,0 +1,38 @@
+<html>
+    <script>
+        function uniqueId()
+        {
+            let id = 0;
+            return function inner()
+            {
+                return id ++;
+            }
+        }
+        let idGen = uniqueId();
+        console.log(idGen());
+        console.log(idGen());
+        console.log(idGen());
+
+        function Stack()
+        {
+            let items=[];
+            function push(item)
+            {
+                items.push(item);
+            }
+            function pop()
+            {
+                return items.pop();
+            }
+            return{
+                push,
+                pop
+            }
+        }
+        let s1 = Stack();
+        s1.push(100);
+        s1.push(200);
+        console.log('S1.pop ',s1.pop());
+        console.log('S1.pop ',s1.pop());
+    </script>
+</html>
