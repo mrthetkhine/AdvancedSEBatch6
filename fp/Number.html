@@ -1,0 +1,37 @@
+<html>
+    <script>
+        /*
+        function zero(f)
+        {
+            return function(x)
+            {
+                return x;
+            }
+        }
+        */
+        const ZERO = f => x => x;
+        const ONE = f => x => f(x) ;
+        const TWO = f => x=> f(f(x));
+        const THREE = f =>x => f(f(f(x))); 
+        const jump=(input)=>(console.log('jump ',input),input);
+        let x= 1;
+        ZERO(jump)(1);
+        TWO(jump)(x);
+
+        let TO_INTEGER = n=> n(x=>x+1)(0)
+        let f = x  =>{
+            console.log('Count ');
+            return x+1;
+        }
+        console.log( THREE(f)(0));
+        const SUCC = n => f => x => f(n(f)(x))
+        const FOUR = SUCC(THREE);
+        console.log('test four');
+        console.log( FOUR(f)(0));
+        //m + n = n(SUCCESSOR)(m);
+        let SUM =  m => n => n(SUCC)(m);
+        const SEVEN = SUM(FOUR)(THREE);
+        console.log('test seven');
+        console.log( SEVEN(f)(0));
+    </script>
+</html>

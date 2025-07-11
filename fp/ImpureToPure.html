@@ -1,0 +1,14 @@
+<html>
+    <script>
+        function log(message)
+        {
+            console.log(message);
+        }
+        function logPure(fn,message)
+        {
+            fn(message);
+        }
+        //log('Hello');
+        logPure(console.log,'Hello');
+    </script>
+</html>

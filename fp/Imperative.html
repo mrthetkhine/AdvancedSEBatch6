@@ -1,0 +1,26 @@
+<html>
+    <script>
+        let arr = [1,2,3,4,5,6];
+        let arr2 =[];
+        for(const item of arr)
+        {
+           arr2.push(item*2); 
+        }
+        console.log('Arr2 ',arr2);
+
+        let arr3 = arr.map(x=>x*2);
+        console.log('Arr3 ',arr3);  
+
+        let evenList = [];
+        for(const item of arr)
+        {
+            if(item%2==0)
+            {
+                evenList.push(item);
+            }
+        }
+        console.log('EvenList ',evenList);
+        let evenList2 = arr.filter(x=>x%2==0);
+        console.log('EvenList2 ',evenList2);
+    </script>
+</html>

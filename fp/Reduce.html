@@ -1,0 +1,14 @@
+<html>
+    <script>
+        let arr = [1,2,3,-4,5,6];
+        console.log('Arr ',arr);
+        let total = arr.reduce((a,b)=> {
+            console.log('A ',a, ' B ',b);
+            return a+b;
+        });
+        console.log('Total ',total);
+
+        let min= arr.reduce( (a,b)=> a>b ?b:a);
+        console.log('Min ',min);
+    </script>
+</html>
