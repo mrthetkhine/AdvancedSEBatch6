@@ -1,0 +1,77 @@
+<html>
+    <script>
+        let students = [
+            {
+                name: "Aung Aung",
+                age : 22,
+                gender:"Male",
+                city:"Mdy",
+            },
+            {
+                name: "Khin Hla",
+                age : 20,
+                gender:"Female",
+                city:"Ygn",
+            },
+            {
+                name: "Maung Maung",
+                age : 32,
+                gender:"Male",
+                city:"Ygn",
+            },
+            {
+                name: "Hla Hla",
+                age : 21,
+                gender:"Female",
+                city:"Mdy",
+            },
+            {
+                name: "Win Tun",
+                age : 25,
+                gender:"Male",
+                city:"Ygn",
+            },
+        ];
+
+        /*
+        {
+            'Male':[],
+            'Female':[]
+        }
+        */
+       /*
+       let group = {}
+       for(const student of students)
+       {
+            if(group[student.gender])
+            {
+                group[student.gender].push(student);
+            }
+            else
+            {
+                group[student.gender] = [student];  
+            }
+       }
+       console.log('Group ',group);
+       */
+      function groupBy(arr,propName)
+      {
+
+        let group = arr.reduce((group,student)=>{
+            let prop = student[propName];
+            if(group[prop])//
+            {
+                group[prop].push(student);
+            }
+            else
+            {
+                group[prop] = [student];
+            }
+            return group;
+        } ,{});
+        return group;
+      }
+      let group = groupBy(students,'city');
+      console.log('Group ',group);  
+    </script>
+</html>

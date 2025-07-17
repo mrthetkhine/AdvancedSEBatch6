@@ -1,0 +1,49 @@
+<html>
+    <script>
+        function appendHi(str)
+        {
+            return str + ' Hi';
+        }
+        function toUpper(str)
+        {
+            return str.toUpperCase();
+        }
+        function toLower(str)
+        {
+            return str.toLowerCase  ();
+        }
+        function upperAndHi(str)
+        {
+            return appendHi(toUpper(str));
+        }
+        function getLength(str)
+        {
+            return str.length;
+        }
+        function compose(...fns)
+        {
+            //[funcA,funB,funcC]
+            return function(x)
+            {
+                return fns.reduceRight((input,fn)=>fn(input) ,x);
+            }
+        }
+        function pipe(...fns)
+        {
+            //[funcA,funB,funcC]
+            return function(x)
+            {
+                return fns.reduce((input,fn)=>fn(input) ,x);
+            }
+        }
+        const incOne = (x) => x + 1;
+        const double = (x) => x *2;
+        const divBy3 = (x) => x / 3;
+
+        let newFun = compose(divBy3,double,incOne);
+        console.log('NewFun ',newFun(10));
+
+        newFun = pipe(getLength,double,divBy3);
+        console.log('NewFun ',newFun('Hello'));
+    </script>
+</html>

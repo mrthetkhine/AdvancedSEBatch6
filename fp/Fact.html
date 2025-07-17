@@ -1,0 +1,18 @@
+<html>
+    <script>
+        function range(start,end)
+        {
+            let arr = [];
+            for(let i=start;i <end;i++)
+            {
+                arr.push(i);
+            }
+            return arr;
+        }
+        let arr = range(1,5);
+        console.log('Arr ',arr);
+        const fact = (n)=> range(1,n+1)
+                            .reduce((result,b)=>result*b,1);
+        console.log('Fact ',fact(5));
+    </script>
+</html>

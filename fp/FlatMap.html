@@ -1,0 +1,14 @@
+<html>
+    <script>
+        let arr = [1,2,3];
+        //let arr2 = arr.map(x=>[x,x*2]).flat();
+        let arr2 = arr.flatMap(x=>[x,x*2]);
+        console.log('Arr2 ',arr2);
+
+        const isGtZero = x => x >0;
+        const isEven = x => x%2==0;
+        console.log('Every ',arr.every(isGtZero));//and
+        console.log('Every ',arr.every(isEven));
+        console.log('some ',arr.some(isEven));//or
+    </script>
+</html>

@@ -1,0 +1,33 @@
+<html>
+    <script>
+        function fact(n)
+        {
+            console.log('Fact ',n);
+            let result = 1;
+            for(let i=1;i<=n;i++)
+            {
+                result = result*i;
+            }
+            return result;
+        }
+        function memonize(fn)
+        {
+            let cache = {};
+            return function(n)
+            {
+                if(cache[n]) //{3:6}
+                {
+                    return cache[n];
+                }
+                else
+                {
+                    cache[n] = fn(n);
+                    return cache[n];
+                }
+            }
+        }
+        let memonizeFact = memonize(fact);
+        console.log('Fact ',memonizeFact(5));
+        console.log('Fact ',memonizeFact(5));
+    </script>
+</html>

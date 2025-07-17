@@ -1,0 +1,9 @@
+<html>
+    <script>
+        let arr = [1,2,3];
+
+        const map = (arr)=>(fn)=> Array.prototype.map.apply(arr,[fn]);
+        let arr2 = map(arr)(x=>x*2);
+        console.log('Arr2 ',arr2);
+    </script>
+</html>

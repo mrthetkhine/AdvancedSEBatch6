@@ -1,0 +1,20 @@
+<html>
+    <script>
+        function map(arr,fun)
+        {
+            return arr.reduce((a,b)=>[...a,fun(b)],[]);
+        }
+        let arr = [1,2,3];
+        let arr2 = map(arr,(x)=>x*2);
+        console.log('Arr2 ',arr2);
+
+        function filter(arr,fun)
+        {
+            return arr.reduce((a,b)=>fun(b)?[...a,b]:a,[]);
+        }
+        let arr3 = filter(arr,(x)=>x%2==0);
+        console.log('Arr3 ',arr3);
+        //a=[1,2]
+        //[...a,3]=> [1,2,3]
+    </script>
+</html>

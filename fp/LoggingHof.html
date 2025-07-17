@@ -1,0 +1,24 @@
+<html>
+    <script>
+        function payment()
+        {
+            console.log('Payment business logic');
+        }
+        function order()
+        {
+            console.log('Order business logic');
+        }
+        function logger(fn)
+        {
+            return function(...arg)
+            {
+                console.log(fn.name, ' was called');
+                return fn(...arg);
+            }
+        }
+        payment = logger(payment);
+        order = logger(order);
+        payment();
+        order();
+    </script>
+</html>
