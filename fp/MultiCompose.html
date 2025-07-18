@@ -39,11 +39,26 @@
         const incOne = (x) => x + 1;
         const double = (x) => x *2;
         const divBy3 = (x) => x / 3;
+        
+        /*
+        function multiply(x,y)
+        {
+            return x*y;
+        }*/ 
+        function multiply(x)
+        {
+            return function(y)
+            {
+                return x*y;
+            }
+        }
+        let multiplyByTen = multiply(10);//partial application
+        console.log('MultiplyByTen ',multiplyByTen(2));
 
-        let newFun = compose(divBy3,double,incOne);
-        console.log('NewFun ',newFun(10));
+        let newFun;
+        newFun = pipe(multiplyByTen,incOne);
+        console.log('NewFun ',newFun(2));
 
-        newFun = pipe(getLength,double,divBy3);
-        console.log('NewFun ',newFun('Hello'));
+       
     </script>
 </html>

@@ -1,0 +1,25 @@
+<html>
+    <script src="https://cdn.jsdelivr.net/npm/ramda@0.30.0/dist/ramda.min.js"></script>
+    <script>
+      
+      function add (x,y) {
+        return x+y;
+      }
+      let curriedAdd = R.curry(add);
+      console.log('Curriedadd ',curriedAdd(2)(3));
+
+      console.log('Add 1,2 ',R.add(1,2));
+      console.log('Add 12',R.add(12));
+      console.log('Add 12,3',R.add(12)(2));
+
+     //let result=(n) = n /3 * 2;  
+     console.log('Mult ',R.multiply(3)(2));
+     console.log('Div ',R.divide (3)(2));
+
+     let newFun =n => R.pipe(
+        R.flip(R.divide)(3),//3/n => n/3
+        R.multiply(2)
+     )(n);
+     console.log('NewFun ',newFun(6));
+    </script>
+</html>

@@ -1,0 +1,32 @@
+<html>
+    <script src="https://cdn.jsdelivr.net/npm/ramda@0.30.0/dist/ramda.min.js"></script>
+    <script>
+      
+        let nums = [1,1,1,2,2,3], k = 2;
+        //1-3, 2-2, 3-1
+        //top K [1,2]
+        let group ={};
+        for(const item of nums)
+        {
+            if(group[item])
+            {
+                group[item]++;
+            }
+            else
+            {
+                group[item] = 1;
+            }
+        }
+        console.log('Group ',group);
+        let arr = Object.entries(group);
+
+        console.log('Arr ',arr);
+        arr.sort((a,b)=> b[1]-a[1]);
+        console.log('Arr ',arr);
+
+        arr.length = 2;
+        let result = arr.map(ele=>ele[0]);
+        console.log('Top K ',result);
+
+    </script>
+</html>

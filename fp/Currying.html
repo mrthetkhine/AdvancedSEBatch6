@@ -1,0 +1,24 @@
+<html>
+    <script>
+        /*
+        function createProduct(color,size){
+            return {
+                color,
+                size
+            }
+        }*/
+       function createProduct(color){
+           return function(size){
+               return {
+                   color,
+                   size
+               }
+           }
+       }
+        let createProductWithRed = createProduct('red');
+        console.log('Product ',createProductWithRed('XL'));
+
+        let product2 = createProductWithRed('M');
+        console.log('Product2 ',product2    )
+    </script>
+</html>

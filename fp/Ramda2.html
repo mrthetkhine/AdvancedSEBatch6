@@ -1,0 +1,65 @@
+<html>
+    <script src="https://cdn.jsdelivr.net/npm/ramda@0.30.0/dist/ramda.min.js"></script>
+    <script>
+      
+    console.log('Identity ',R.identity(20));
+    console.log('R.gt 2,1 ',R.gt(2)(1));
+    console.log('R.lt 2,1 ',R.lt(2)(1));
+    console.log('R.gte 2,2 ',R.gte(2)(2));
+
+    const incCount = R.ifElse(
+        R.has('count'),
+        R.over(R.lensProp('count'), R.inc),
+        R.assoc('count', 1)
+    );
+    let obj = {
+        count: 1
+    };
+    console.log('R.has ',R.has('count')(obj));
+    /*
+    Immutable
+    */
+    function incCount2(obj) {
+        return {
+            ...obj, 
+            count : obj.count+1
+
+        }
+    }
+    console.log('incCount2 ',incCount2(obj));
+    let obj2= incCount2(obj);
+    console.log('Obj ',obj2);
+    let obj3 = R.assoc('count', 100)(obj);
+    console.log('Obj3 ',obj3);
+    console.log('Obj ',obj);
+
+    let another = {
+        name: 'Aung Aung',
+        /*
+        address: {
+            city : "YGN",
+            street:"Somewhere"
+        }*/
+    }
+    function updateCity (obj,name)
+    {
+        return {
+            ... obj,
+            address :{
+                ... obj.address,
+                city: name
+            }
+        }
+    }
+    let another2 = updateCity(another,'Mdy');
+    console.log('Another2 ',another2);
+    console.log('Another ',another);
+
+    let another3 = R.assocPath(['address','city'], 'Mdy')(another);
+    console.log('Another3 ',another3);
+    console.log('Another ',another);
+
+    console.log('R.prop ',R.prop('address')(another3));
+    console.log('R.path ',R.path(['address','city'])(another3));
+    </script>
+</html>

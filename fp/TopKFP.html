@@ -1,0 +1,50 @@
+<html>
+    <script src="https://cdn.jsdelivr.net/npm/ramda@0.30.0/dist/ramda.min.js"></script>
+    <script>
+      
+        let nums = [1,1,1,2,2,3], k = 2;
+        //1-3, 2-2, 3-1
+        //top K [1,2]
+        function groupBy(arr)
+        {
+            let group = arr.reduce((group,ele)=>{
+                if(group[ele])
+                {
+                    group[ele]++;
+                }
+                else
+                {
+                    group[ele] = 1;
+                }
+                return group;
+            },{});
+            return group;
+        }
+        
+        console.log('Group ',groupBy(nums));
+        function toArray(group)
+        {
+            return Object.entries(group);
+        }
+        function sort(arr)
+        {
+            return arr.sort((a,b)=> b[1]-a[1]);
+        }
+        function take(k)
+        {
+            return function fun(arr)
+            {
+                arr.length = k;
+                return arr;
+            }
+            
+        }
+        let topK = R.pipe(
+            groupBy,
+            toArray,
+            sort,
+            take(k)
+        );
+        console.log('Arr ',topK(nums));
+    </script>
+</html>

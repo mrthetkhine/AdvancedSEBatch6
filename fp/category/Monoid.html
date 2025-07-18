@@ -1,0 +1,23 @@
+<html>
+    <script src="https://cdn.jsdelivr.net/npm/ramda@0.30.0/dist/ramda.min.js"></script>
+    <script>
+      
+        const Sum = {
+            binaryOp:(a,b)=> a+b,
+            identity:0,
+        }
+        const Mult = {
+            binaryOp:(a,b)=> a*b,
+            identity:1,
+        }
+        let arr = [4,2,3];
+        function fold(monoid,arr)
+        {
+            return arr.reduce(monoid.binaryOp,monoid.identity);
+        }
+        let total = fold(Sum,arr);
+        console.log('Total ',total);
+        let product = fold(Mult,arr);
+        console.log('Product ',product);
+    </script>
+</html>
