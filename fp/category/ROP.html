@@ -1,0 +1,14 @@
+<html>
+     <script src="https://cdn.jsdelivr.net/npm/ramda@0.30.0/dist/ramda.min.js"></script>
+    <script>
+      
+
+    let promise = Promise.reject(11)
+                         .then(x=>x+1,err=>{
+                            console.log('Error step 1');
+                            throw new Error('Error');
+                         }) 
+                         .then(x=>console.log('Result ',x),err=>console.log('Error step 2 ',err) );  
+    
+    </script>
+</html>

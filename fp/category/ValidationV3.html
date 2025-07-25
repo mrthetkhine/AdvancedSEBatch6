@@ -1,0 +1,168 @@
+<html>
+    <script src="https://cdn.jsdelivr.net/npm/ramda@0.30.0/dist/ramda.min.js"></script>
+   
+    <script>
+        /*
+    
+    minLength3('hi')
+        .matchWith({
+            left:(err)=>console.log('Error ',err),
+            right:(value)=>console.log('Success ',value),
+        });
+    minLength3('hello')
+        .matchWith({
+            left:(err)=>console.log('Error ',err),
+            right:(value)=>console.log('Success ',value),
+        });
+    const maxLength5 = enhance(maxLength(5))('MaxLength should be 5');     
+    maxLength5('hello')
+        .matchWith({
+            left:(err)=>console.log('Error ',err),
+            right:(value)=>console.log('Success ',value),
+        });
+    maxLength5('hello world')
+        .matchWith({
+            left:(err)=>console.log('Error ',err),
+            right:(value)=>console.log('Success ',value),
+        });
+    */ 
+   /*
+    let x= 'hello';
+    Right.of(x)
+        .and(Right.of(100))
+        .matchWith({
+            left:(err)=>console.log('Error ',err),
+            right:(value)=>console.log('Success ',value),
+        });    
+    Right.of(x)
+        .and(Left.of('Invalid'))
+        .matchWith({
+            left:(err)=>console.log('Error ',err),
+            right:(value)=>console.log('Success ',value),
+        });     
+    Left.of('Invalid name')
+        .and(Right.of(100))
+        .matchWith({
+            left:(err)=>console.log('Error ',err),
+            right:(value)=>console.log('Success ',value),
+        });   
+    */ 
+      let Left = (value)=>({
+        value,
+        map(fn)
+        {
+            return Left.of(value); 
+        },
+        matchWith(context)
+        {
+            return context.left(value);
+        },
+        isLeft()
+        {
+            return true;
+        },
+        valueOf()
+        {
+            return value;
+        },
+        and(other)
+        {
+            return Left.of([...value,...other.value]);
+        },
+        or(other)
+        {
+            return other.isLeft()? Left.of([...value,...other.value]): other;
+        },
+    });
+    Left.of = Left;
+    let Right = (value)=>({
+        value,
+        map(fn)
+        {
+            return Right.of(fn(value)); 
+        },
+        matchWith(context)
+        {
+            return context.right(value);
+        },
+        isLeft()
+        {
+            return false;
+        },
+        and(other)
+        {
+            return !other.isLeft() ? Right.of(value) : other;
+        },
+        or(other)
+        {
+            return this;
+        },
+        valueOf()
+        {
+            return value;
+        }
+    });
+    Right.of = Right;
+
+    const minLength = length => str => str.length >= length;
+    const maxLength = length => str => str.length <= length;
+    const minNum = value => num => num >= value;
+    const maxNum = value => num => num <= value;
+
+    const validMail = str=> str.includes('@');
+
+    function enhance(validFn)
+    {
+        return function(message)
+        {
+            const fn = x=> validFn(x) ? Right.of(x) : Left.of([message]);
+            return fn;
+        }
+    }
+    function andCombinator(...fns)
+    {
+        return function(x)
+        {
+            return fns.reduce((acc,fn) => acc.and(fn(x)),Right.of(x));
+        }
+    }
+    function orCombinator(...fns)
+    {
+        return function(x)
+        {
+            return fns.reduce((acc,fn) => acc.or( fn(x)),Left.of(x));
+        }
+    }
+    const minLength3 = enhance(minLength(3))('MinLength should be 3');
+    const validEmail = enhance(validMail)('Email should be valid');
+    const andRule = andCombinator(minLength3,validEmail);
+    
+    andRule('hi@')
+        .matchWith({
+            left:(err)=>console.log('Error ',err),
+            right:(value)=>console.log('Success ',value),
+        })
+    andRule('h@')
+        .matchWith({
+            left:(err)=>console.log('Error ',err),
+            right:(value)=>console.log('Success ',value),
+        })
+    andRule('h')
+        .matchWith({
+            left:(err)=>console.log('Error ',err),
+            right:(value)=>console.log('Success ',value),
+        });    
+    const orRule = orCombinator(minLength3,validEmail);
+    console.log('Or rule');
+    orRule('h')
+        .matchWith({
+            left:(err)=>console.log('Error ',err),
+            right:(value)=>console.log('Success ',value),
+        });
+    orRule('h@')
+        .matchWith({
+            left:(err)=>console.log('Error ',err),
+            right:(value)=>console.log('Success ',value),
+        });       
+    </script>
+</html>

@@ -1,0 +1,45 @@
+<html>
+     <script src="https://cdn.jsdelivr.net/npm/ramda@0.30.0/dist/ramda.min.js"></script>
+    <script>
+      
+    function appendHi(str)
+    {
+        return str + " hi";
+    }      
+    function toUpper(str)
+    {
+        return str.toUpperCase();
+    }
+    let MayBe = (value)=>({
+        isEmpty()
+        {
+            return value===null || value === undefined;
+        },
+        map(fn)
+        {
+            return this.isEmpty() ? MayBe.of(null) : MayBe(fn(value)); 
+        },
+        orElse(defaultValue)
+        {
+            return this.isEmpty() ? MayBe.of(defaultValue) : MayBe.of(value);
+        },
+        valueOf()
+        {
+            return value;
+        }
+    });
+    MayBe.of = MayBe;
+    let newFun = R.pipe(toUpper,appendHi);
+
+    console.log('NewFun ',newFun('Hello'));
+    //console.log('NewFun ',newFun(null) );
+    let str = 'hello';
+    let data = MayBe.of(str)
+                    .map(toUpper)
+                    .map(appendHi)
+                    .orElse('Default')
+                    .map(x=>console.log('Result is ',x));
+
+    console.log('Data ',data.valueOf());
+    </script>
+</html>

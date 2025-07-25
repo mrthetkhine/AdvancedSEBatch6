@@ -1,0 +1,105 @@
+<html>
+     <script src="https://cdn.jsdelivr.net/npm/ramda@0.30.0/dist/ramda.min.js"></script>
+    <script>
+      
+
+    let Left = (value)=>({
+        value,
+        map(fn)
+        {
+            return Left.of(value); 
+        },
+        matchWith(context)
+        {
+            return context.left(value);
+        },
+        result()
+        {
+            return value;
+        }
+    });
+    Left.of = Left;
+    let Right = (value)=>({
+        value,
+        map(fn)
+        {
+            return Right.of(fn(value)); 
+        },
+        matchWith(context)
+        {
+            return context.right(value);
+        },
+        result()
+        {
+            return value;
+        }
+    });
+    Right.of = Right;
+    /*
+        div(a,b)
+            .map(inc)
+    */
+   
+    //validName
+    //validAge
+    //save
+    function validateName(obj)//Either
+    {
+        return obj.name!==""? Right.of(obj) : Left.of('Invalid name');
+    }
+    //monadic function
+    function validateAge(obj)
+    {
+        console.log('validateAge Obj ',obj);
+        return obj.age>0 && obj.age < 100 ? Right.of(obj) : Left.of('Invalid age');
+    }
+    function saveUser(obj)
+    {
+        console.log('Save User ',obj.result());
+    }
+    //normal function
+    function toUpper(obj)
+    {
+        console.log('toUpper Obj ',obj);
+        return {
+            name: obj.name.toUpperCase(),
+            age:obj.age,
+        }
+    }
+     let data = {
+        name : "TK",
+        age : 20
+    }
+    let Container = (value)=>({
+       map(fn)
+       {
+            return Container(fn(value)); 
+       },
+       flat()
+       {
+           return value;
+       },
+       flatMap(fn)
+       {
+           return fn(value);
+       },
+       valueOf()
+       {
+           return value;
+       }
+    });
+    Container.of = Container;
+    /*
+    Container.of(data)//Container(obj)
+            .map(validateName)//Container(Either(obj))
+            .flat()//Either(obj)
+            .map(validateAge) 
+            .map(x=>console.log('Save user',x.result()));
+    */
+    Container.of(data)//Container(obj)
+            .flatMap(validateName)//Container(Either(obj))
+            //Either(obj)
+            .map(validateAge) 
+            .map(x=>console.log('Save user',x.result()));
+    </script>
+</html>

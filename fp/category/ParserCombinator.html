@@ -1,0 +1,143 @@
+<html>
+    <script src="https://cdn.jsdelivr.net/npm/ramda@0.30.0/dist/ramda.min.js"></script>
+   
+    <script>
+        /*
+    
+    minLength3('hi')
+        .matchWith({
+            left:(err)=>console.log('Error ',err),
+            right:(value)=>console.log('Success ',value),
+        });
+    minLength3('hello')
+        .matchWith({
+            left:(err)=>console.log('Error ',err),
+            right:(value)=>console.log('Success ',value),
+        });
+    const maxLength5 = enhance(maxLength(5))('MaxLength should be 5');     
+    maxLength5('hello')
+        .matchWith({
+            left:(err)=>console.log('Error ',err),
+            right:(value)=>console.log('Success ',value),
+        });
+    maxLength5('hello world')
+        .matchWith({
+            left:(err)=>console.log('Error ',err),
+            right:(value)=>console.log('Success ',value),
+        });
+    */ 
+   /*
+    let x= 'hello';
+    Right.of(x)
+        .and(Right.of(100))
+        .matchWith({
+            left:(err)=>console.log('Error ',err),
+            right:(value)=>console.log('Success ',value),
+        });    
+    Right.of(x)
+        .and(Left.of('Invalid'))
+        .matchWith({
+            left:(err)=>console.log('Error ',err),
+            right:(value)=>console.log('Success ',value),
+        });     
+    Left.of('Invalid name')
+        .and(Right.of(100))
+        .matchWith({
+            left:(err)=>console.log('Error ',err),
+            right:(value)=>console.log('Success ',value),
+        });   
+    */ 
+      let Left = (value)=>({
+        value,
+        map(fn)
+        {
+            return Left.of(value); 
+        },
+        matchWith(context)
+        {
+            return context.left(value);
+        },
+        isLeft()
+        {
+            return true;
+        },
+        valueOf()
+        {
+            return value;
+        },
+        and(other)
+        {
+            return Left.of([...value,...other.value]);
+        },
+        or(other)
+        {
+            return other.isLeft()? Left.of([...value,...other.value]): other;
+        },
+    });
+    Left.of = Left;
+    let Right = (value)=>({
+        value,
+        map(fn)
+        {
+            return Right.of(fn(value)); 
+        },
+        matchWith(context)
+        {
+            return context.right(value);
+        },
+        isLeft()
+        {
+            return false;
+        },
+        and(other)
+        {
+            return !other.isLeft() ? Right.of(value) : other;
+        },
+        or(other)
+        {
+            return this;
+        },
+        valueOf()
+        {
+            return value;
+        }
+    });
+    Right.of = Right;
+
+    function parseString(str)
+    {
+        return function (input)
+        {
+            if(input.startsWith(str))
+            {
+                return Right.of(input.slice(str.length));
+            }
+            return Left.of('Invalid string ',str);
+        }
+    }
+    function parseNumber(number)
+    {
+        return function (input)
+        {
+            let str = number+"";
+            
+            if(input.startsWith(str))
+            {
+                return Right.of(input.slice(str.length));
+            }
+            return Left.of('Invalid string ',str);
+        }
+    }
+
+    let parseABC = parseString('abc');
+    let parseNum = parseNumber(123);
+    parseABC('abcd123')
+        .map(parseNum)
+        .matchWith({
+            left:(err)=>console.log('Error ',err),
+            right:(value)=>console.log('Success ',value),
+        });
+                    
+    
+    </script>
+</html>

@@ -1,0 +1,66 @@
+<html>
+     <script src="https://cdn.jsdelivr.net/npm/ramda@0.30.0/dist/ramda.min.js"></script>
+    <script>
+      
+
+    let Left = (value)=>({
+        value,
+        map(fn)
+        {
+            return Left.of(value); 
+        },
+        matchWith(context)
+        {
+            return context.left(value);
+        },
+        valueOf()
+        {
+            return value;
+        }
+    });
+    Left.of = Left;
+    let Right = (value)=>({
+        value,
+        map(fn)
+        {
+            return Right.of(fn(value)); 
+        },
+        matchWith(context)
+        {
+            return context.right(value);
+        },
+        valueOf()
+        {
+            return value;
+        }
+    });
+    Right.of = Right;
+    /*
+        div(a,b)
+            .map(inc)
+    */
+   function div(a,b)
+   {
+       if( isNaN(a) || isNaN(b) )
+       {
+        return Left.of('A or B is NaN')
+       }
+       else
+       {
+        return Right.of(a/b);
+       }
+   }
+   div(10,NaN)
+    .map(x=>x+1)
+    .matchWith({
+        left(x)
+        {
+            console.log('Error ',x);
+        },
+        right(x)
+        {
+            console.log('Succes ',x);
+        }
+    })
+    </script>
+</html>

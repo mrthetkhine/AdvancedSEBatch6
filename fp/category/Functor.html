@@ -1,0 +1,40 @@
+<html>
+     <script src="https://cdn.jsdelivr.net/npm/ramda@0.30.0/dist/ramda.min.js"></script>
+    <script>
+      
+    let counter = 1;
+    counter ++;
+
+    let inc = (x)=>x+1;
+    let double = (x)=>x*2;
+
+    let Container = (value)=>({
+       map(fn)
+       {
+            return Container(fn(value)); 
+       },
+       valueOf()
+       {
+           return value;
+       }
+    });
+    Container.of = Container;
+    
+    let c1 = Container.of(10);
+    let c2 = c1.map(inc);
+
+    console.log('C1 ',c1.valueOf());
+    console.log('C2 ',c2.valueOf());
+
+    let c3 = c1.map(R.identity);
+    console.log('C3 ',c3.valueOf() === c1.valueOf());
+
+
+    //law 2
+    let c4 = c1.map(inc)
+                .map(double);
+    let newFun = R.pipe(inc,double);
+    let c5 = c1.map(newFun);
+    console.log('C4 ',c4.valueOf() === c5.valueOf() );        
+    </script>
+</html>

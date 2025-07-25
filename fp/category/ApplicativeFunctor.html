@@ -1,0 +1,41 @@
+<html>
+     <script src="https://cdn.jsdelivr.net/npm/ramda@0.30.0/dist/ramda.min.js"></script>
+    <script>
+      
+    let counter = 1;
+    counter ++;
+
+    let inc = (x)=>x+1;
+    let double = (x)=>x*2;
+
+    let Container = (value)=>({
+       map(fn)
+       {
+            return Container(fn(value)); 
+       },
+       ap(another)
+       {
+            return another.map(value);//value->function
+       },
+       valueOf()
+       {
+           return value;
+       }
+    });
+    Container.of = Container;
+    let three = Container.of(3);
+    let c1 = Container.of(10);
+     /*
+        Container( R.add(10))
+        Container(fn)
+    */
+    let c2 = c1.map(R.add)
+            .ap(three);
+            /*
+                Container(fn)->
+                ap ->Container(fn(value))
+            */
+   
+    console.log('C2 ',c2.valueOf());
+    </script>
+</html>

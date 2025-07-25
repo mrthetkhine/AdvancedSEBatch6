@@ -1,0 +1,70 @@
+<html>
+    <script src="https://cdn.jsdelivr.net/npm/ramda@0.30.0/dist/ramda.min.js"></script>
+    <script>
+      
+        /*
+        const minLength5 = minLength(5);
+        console.log('MinLegnth ',minLength5('Hello'));    
+        console.log('MinLegnth ',minLength5('HI'));    
+
+        const maxLength5 = maxLength(5);
+        console.log('MaxLegnth hello ',maxLength5('Hello'));    
+        console.log('MaxLegnth helloworld ',maxLength5('Hello world'));
+
+        console.log('validemail hello ',validMail('hello'));
+        console.log('validemail hello@gmail.com ',validMail('hello@gmail.com'));
+
+        const min3 = minNum(3);
+        console.log('Min3 ',min3(2));
+        console.log('min 3 ',min3(3));
+        */
+        const minLength = length => str => str.length >= length;
+        const maxLength = length => str => str.length <= length;
+        const minNum = value => num => num >= value;
+        const maxNum = value => num => num <= value;
+
+        const validMail = str=> str.includes('@');
+
+        let AndMonoid = {
+            binaryOp:(a,b)=> a && b,
+            identity:()=>true
+        }
+        let OrMonoid = {
+            binaryOp:(a,b)=> a || b,
+            identity:()=>false
+        }
+        function fold(monoid,...fns)
+        {
+            return function(x)
+            {
+                return fns.reduce((acc,fn) => monoid.binaryOp(acc,fn(x)),monoid.identity());
+            }
+        }
+        function andCombinator(...fns)
+        {
+            return function(x)
+            {
+                return fns.reduce((acc,fn) => acc && fn(x),true);
+            }
+        }
+        function orCombinator(...fns)
+        {
+            return function(x)
+            {
+                return fns.reduce((acc,fn) => acc || fn(x),false);
+            }
+        }
+        //let min3Max5= andCombinator(minLength(3),maxLength(5));
+        let min3Max5= fold(AndMonoid, minLength(3),maxLength(5));
+        console.log('Min3Max5 hello ',min3Max5('Hello'));
+        console.log('Min3Max5 helloWorld ',min3Max5('Hello world'));
+        console.log('Min3Max5 hi ',min3Max5('hi'));
+
+        //let min3Email= orCombinator(minLength(3),validMail);
+        let min3Email= fold(OrMonoid, minLength(3),validMail);
+        console.log('min3Email hello ',min3Email('Hello'));
+        console.log('min3Email hi ',min3Email('hi'));
+        console.log('min3Email hiello ',min3Email('hiello'));
+        console.log('min3Email h@',min3Email('h@'));
+    </script>
+</html>
