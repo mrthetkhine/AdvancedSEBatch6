@@ -6,7 +6,7 @@ public class Account {
 	public double getBalance() {
 		return balance;
 	}
-	void debit(double amount)
+	public void debit(double amount)
 	{
 		if(this.balance>= amount && amount >0)
 		{
@@ -14,7 +14,7 @@ public class Account {
 		}
 		
 	}
-	void credit(double amount)
+	public void credit(double amount)
 	{
 		if(amount >= 0)
 		{
