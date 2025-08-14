@@ -8,6 +8,7 @@ import static org.mockito.ArgumentMatchers.argThat;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.atLeast;
 import static org.mockito.Mockito.atMost;
+import static org.mockito.Mockito.doCallRealMethod;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.doThrow;
@@ -20,9 +21,11 @@ import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
+import org.mockito.ArgumentCaptor;
 import org.mockito.InOrder;
 import org.mockito.Mockito;
 import org.mockito.invocation.InvocationOnMock;
@@ -31,6 +34,7 @@ import org.mockito.stubbing.Answer;
 import com.turing.advancedse6.oop.Account;
 import com.turing.advancedse6.oop.TransferService;
 import com.turing.advancedse6.oop.principle.Car;
+import com.turing.advancedse6.oop.principle.DieselEngine;
 import com.turing.advancedse6.oop.principle.Engine;
 
 import lombok.extern.slf4j.Slf4j;
@@ -247,5 +251,43 @@ public class MockitoTest {
 		 	assertThrows(RuntimeException.class,()->{
 		 		mockedList.clear();
 		 	});
+	}
+	@Test
+	public void testDoCallRealMethod()
+	{
+		 DieselEngine engine = mock(DieselEngine.class);
+		 doCallRealMethod().when(engine).start();
+		 Car car = new Car(engine);
+		 
+		 car.start();
+		 
+	}
+	@Test
+	public void testSpy()
+	{
+		List list = new LinkedList();
+		List spy = Mockito.spy(list);
+
+	    //optionally, you can stub out some methods:
+	    when(spy.size()).thenReturn(100);
+	    
+	    spy.add("one");
+	    spy.add("two");
+	    
+	    assertEquals("one",spy.get(0));
+	    assertEquals("two",spy.get(1));
+	    
+	    assertEquals(100,spy.size());
+	}
+	
+	@Test
+	public void testCaptureArgument()
+	{
+		List mock = mock(ArrayList.class);
+		ArgumentCaptor<String> argument = ArgumentCaptor.forClass(String.class);
+		mock.add("one");
+		
+		verify(mock).add(argument.capture());
+		assertEquals("one", argument.getValue());
 	}
 }
