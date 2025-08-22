@@ -19,8 +19,10 @@ public class ParanthesisValidator {
 		opening.add('[');
 		closing.add(']');
 		
+		
 		opening.add('{');
 		closing.add('}');
+		
 	}
 	boolean isOpening(char ch)
 	{

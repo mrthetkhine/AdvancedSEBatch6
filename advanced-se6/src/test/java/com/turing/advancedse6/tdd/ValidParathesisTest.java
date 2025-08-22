@@ -86,6 +86,7 @@ public class ValidParathesisTest {
 	{
 		assertEquals(true, validator.test("()[]{}"));
 	}
+	//"()[]{"
 	@Test
 	public void testCaseEleven()
 	{
